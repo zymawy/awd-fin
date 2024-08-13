@@ -1,0 +1,99 @@
+{% extends './base/base.html' %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add New Course</h2>
+        <form id="addCourseForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Module Code Field -->
+            <div class="mb-4">
+                <label for="module_code" class="block text-sm font-medium text-gray-700">Module Code</label>
+                <em class="block text-xs text-gray-500 mb-2">E.g. CC3035</em>
+                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" id="module_code" name="module_code" value="{{ form.module_code.value }}">
+                <!-- Display error for module_code -->
+                {% for error in form.module_code.errors %}
+                <span class="text-red-500 block mt-1">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Title Field -->
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <em class="block text-xs text-gray-500 mb-2">E.g. Evolution Theory</em>
+                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" id="title" name="title" value="{{ form.title.value }}">
+                <!-- Display error for title -->
+                {% for error in form.title.errors %}
+                <span class="text-red-500 block mt-1">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- General Error Display -->
+            {% if form.errors %}
+            <div class="bg-yellow-100 text-yellow-800 p-4 rounded mb-4">
+                <p class="font-bold">The following errors have been detected in your submission:</p>
+                <ul class="list-disc pl-5">
+                    {% for field, errors in form.errors.items %}
+                    <li>{{ errors|join:', ' }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Submit Button with Loading Indicator -->
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center">
+                    <i class="fas fa-save mr-2"></i> <span id="submitBtnText">Save</span>
+                    <i id="loadingSpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#addCourseForm').on('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Show loading state
+            let submitButton = $(this).find('button[type="submit"]');
+            $('#submitBtnText').text('Saving...');
+            $('#loadingSpinner').removeClass('hidden');
+            submitButton.prop('disabled', true);
+
+            // Submit the form via AJAX
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'courses.create' %}",  // Replace with the correct URL for your form submission
+                data: $(this).serialize(),
+                success: function(response) {
+                    alert('Course added successfully!');
+                    window.location.href = response.redirect_url;  // Redirect or update the UI as needed
+                },
+                error: function(response) {
+                    // Handle errors and re-enable the button
+                    displayErrors(response.responseJSON);
+                    $('#submitBtnText').text('Save');
+                    $('#loadingSpinner').addClass('hidden');
+                    submitButton.prop('disabled', false);
+                }
+            });
+        });
+
+        // Function to display errors
+        function displayErrors(errors) {
+            $('.text-red-500').remove();  // Clear any previous errors
+            for (let field in errors) {
+                let errorMsg = errors[field][0];
+                let errorElement = `<span class="text-red-500 block mt-1">${errorMsg}</span>`;
+                $(`#${field}`).after(errorElement);
+            }
+        }
+    });
+</script>
+{% endblock %}

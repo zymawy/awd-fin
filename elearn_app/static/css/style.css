@@ -1,0 +1,365 @@
+/*!* color pallets: #0275d8, $5cb85c, #5bc0de, #f0ad4e, #d9534f, #292b2c, #f7f7f7 *!*/
+/*body {*/
+/*    margin:0px; */
+/*    padding: 0px;*/
+/*    background-color: #f7f7f7;*/
+/*}*/
+
+/*h2 {*/
+/*    font-weight: bold;*/
+/*    font-size: 32px;*/
+/*}*/
+
+/*h3 {*/
+/*    font-size: 24px;*/
+/*}*/
+
+/*a {*/
+/*    color: #007ca5;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*a:hover {*/
+/*    color: #004961;*/
+/*}*/
+
+/*label  {*/
+/*    font-weight: bold;*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*.header {*/
+/*    background: #292b2c;*/
+/*    color: #f7f7f7;*/
+/*    padding: 30px;*/
+/*    text-align: center;*/
+/*}*/
+/*.footer {*/
+/*    background: #292b2c;*/
+/*    color: #f7f7f7;*/
+/*    padding: 10px;*/
+/*    text-align: center;*/
+/*    position: fixed;*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*}*/
+
+
+/*#application-title {*/
+/*    font-size: 32px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 10px;*/
+/*}*/
+/*#application-logo {*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*}*/
+
+
+/*.nav-bar {*/
+/*    background: #f0ad4e;*/
+/*    padding:5px;*/
+/*    color: #f7f7f7;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    text-align: right;*/
+/*}*/
+/*.nav-bar-left {*/
+/*    display: flex;*/
+/*    justify-content: flex-start;*/
+/*}*/
+/*.current-nav {*/
+/*    border-bottom: #292b2c 2px solid;*/
+/*}*/
+/*.nav-bar a {*/
+/*    color: #292b2c;*/
+/*    text-decoration: none;*/
+/*    margin: 10px 20px 10px 20px;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.nav-bar a:hover {*/
+/*    color: #515557;*/
+/*}*/
+
+/*#logout {*/
+/*    color: #c70021;*/
+/*}*/
+/*#logout:hover {*/
+/*    color: #8a0015;*/
+/*}*/
+
+/*.content {*/
+/*    background-color: #f7f7f7;*/
+/*    color: #292b2c;*/
+/*    margin-bottom: 100px;*/
+/*    min-height:80vh;*/
+/*}*/
+
+/*.page-section {*/
+/*    margin:5px;*/
+/*    padding: 20px 20px 5px 20px;*/
+/*}*/
+/*.course-title-section {*/
+/*    padding: 20px 0px 0px 20px;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+/*.top-black-section {*/
+/*    background-color: #292b2c;*/
+/*    color: #f7f7f7;*/
+/*    padding-bottom: 5px;*/
+/*}*/
+/*.profile {*/
+/*    display: flex;*/
+/*}*/
+/*.profile img { */
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    border-radius: 50%;*/
+/*    border: #AAA 2px solid ;*/
+/*}*/
+/*.profile-picture {*/
+/*    margin-right: 20px;*/
+/*}*/
+/*.profile-info {*/
+/*    margin-left: 20px;*/
+/*}	*/
+/*.link-on-black {*/
+/*    color: #5bc0de;*/
+/*    text-decoration: none;*/
+/*}*/
+/*.link-on-black:hover {*/
+/*    text-decoration: underline;*/
+/*}*/
+
+/*.heading-with-button {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.side-section {*/
+/*    margin:0px;*/
+/*    border-left: #AAA 2px solid;*/
+/*    height: 100%;*/
+/*    min-height: 80vh;*/
+/*}*/
+
+/*.form-section, .form-section-v2 {*/
+/*    justify-content: center;*/
+/*    width:800px;*/
+/*    max-width: 90vw;*/
+/*    margin: 30px auto;*/
+/*    height: 100%;*/
+/*    border-radius: 10px;*/
+/*    border: #AAA 2px solid;*/
+/*    padding: 20px;*/
+/*}*/
+/*.form-section label {*/
+/*    display: inline-block;*/
+/*    width: 150px; */
+/*}*/
+
+/*.form-section input {*/
+/*    width: 300px;*/
+/*    padding: 10px;*/
+/*    margin: 10px 0px;*/
+/*    border-radius: 5px;*/
+/*    border: #AAA 1px solid;*/
+/*}*/
+
+/*.form-section-v2 input {*/
+/*    width: 90%;*/
+/*    padding: 10px;*/
+/*    border-radius: 5px;*/
+/*    border: #AAA 1px solid;*/
+/*}*/
+
+/*.profile-update label {*/
+/*    width: 100%;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.profile-update input {*/
+/*    width: 100%;*/
+/*}*/
+/*label[for="photo-clear_id"] {*/
+/*    width: auto;*/
+/*}*/
+/*input[id="photo-clear_id"] {*/
+/*    width: auto;*/
+/*    margin-right: 5px;*/
+/*}*/
+/*.profile-update a {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    width:100%*/
+/*}*/
+
+/*!* Style for the Currently link *!*/
+/*.profile-update a.currently-link {*/
+/*    margin-right: 10px; !* Add some spacing to the right *!*/
+/*}*/
+
+/*!* Style for the Clear checkbox *!*/
+/*.profile-update input#photo-clear_id {*/
+/*    margin-right: 5px; !* Add some spacing to the right *!*/
+/*}*/
+
+/*!* Style for the Change input *!*/
+/*.profile-update input#id_photo {*/
+/*    margin-top: 5px; !* Add some margin at the top *!*/
+/*}*/
+
+/*.btn-yellow {*/
+/*    background-color: #f0ad4e;*/
+/*    color: #292b2c;*/
+/*    border: none;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*    padding: 10px 20px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    margin-bottom: 10px;*/
+/*    text-align: center;*/
+/*    width: 150px;*/
+/*}*/
+/*.btn-blue {*/
+/*    background-color: #5bc0de;*/
+/*    color: #292b2c;*/
+/*    border: none;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*    padding: 5px 10px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    margin-top:5px;*/
+/*    margin-bottom: 10px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.btn-red {*/
+/*    background-color: #d9534f;*/
+/*    color: #f7f7f7;*/
+/*    border: none;*/
+/*    text-decoration: none;*/
+/*    padding: 5px 10px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    margin-bottom: 10px;*/
+/*    text-align: center;*/
+/*}*/
+/*!* color pallets: #0275d8, $5cb85c, #5bc0de, #f0ad4e, #d9534f, #292b2c, #f7f7f7 *!*/
+
+/*.login-section .btn-yellow {*/
+/*    width: 100%;*/
+/*}*/
+
+/*.status-icon {*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    border-radius: 50%;*/
+/*    display: inline-block;*/
+/*    background-color: #5cb85c;*/
+/*}*/
+
+/*.status-active {*/
+/*    background-color: #5cb85c;*/
+/*}*/
+/*.status-deactivated {*/
+/*    background-color: #d9534f;*/
+/*}*/
+
+/*.faded-background {*/
+/*    background-color: white;*/
+/*    color: #292b2c;*/
+/*    padding: 20px;*/
+/*    margin: 5px;*/
+/*    border-radius: 10px;*/
+/*    border: #DDD 2px solid;*/
+/*}*/
+
+/*.input-group-text   {*/
+/*    line-height: normal;*/
+/*}*/
+
+/*.chat-log {*/
+/*    width: 100%; */
+/*    height: 200px; */
+/*    padding: 10px; */
+/*    font-size: 16px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 5px; */
+/*    resize: none; !* Disable resizing *!*/
+/*    overflow-y: auto;*/
+/*}*/
+
+/*#chat-message-input {*/
+/*    width: 100%; */
+/*    padding: 10px; */
+/*    font-size: 16px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 5px; */
+/*    resize: none; !* Disable resizing *!*/
+/*}*/
+
+/*.notification-close-button {*/
+/*    width: 100%;*/
+/*    text-decoration: none;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    text-align: right;*/
+/*}*/
+
+ #modalOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #modalOverlay.modal-open {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #modal {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100px);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #modalOverlay.modal-open #modal {
+        transform: translateY(0);
+    }
+
+    #closeModalBtn {
+        background-color: #e53e3e;
+        color: #fff;
+    }
+
+    #closeModalBtn:hover {
+        background-color: #c53030;
+    }
+    emoji-picker {
+        position: absolute;
+        z-index: 10000;
+        max-width: 250px;
+    }

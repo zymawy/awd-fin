@@ -1,0 +1,48 @@
+{% load static tailwind_tags %}
+<nav class="bg-primary">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <!-- Logo and Title -->
+        <div class="flex items-center">
+            <img src="{% static 'images/feather-pen.png' %}" alt="SJ Academy Logo" class="h-8 w-8">
+            <a href="{% url 'home' %}" class="text-white text-xl font-bold ml-3">Urjwan eLean</a>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex space-x-4">
+		{% if user.is_authenticated %}
+		<a href="{% url 'home' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Home</a>
+		<a href="{% url 'courses' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+		{% endif %}
+			<!-- only show user list to instructors -->
+		{% if user_profile.is_instructor %}
+			<a href="{% url 'users' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Find Users</a>
+		{% endif %}
+		{% if user_profile.is_instructor %}
+			<a href="{% url 'api_teacher_course' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">My Data (API)</a>
+		{% endif %}
+		{% if user_profile.is_student %}
+			<a href="{% url 'api_student_course' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">My Data (API)</a>
+		{% endif %}
+        </div>
+
+        <!-- User Profile and Actions -->
+        <div class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
+                <span class="text-neutral text-sm font-medium">Welcome, {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="text-error hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                <a href="{% url 'signup' %}" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
+            {% endif %}
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-white hover:text-secondary focus:outline-none">
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>

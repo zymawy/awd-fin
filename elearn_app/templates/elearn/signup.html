@@ -1,0 +1,74 @@
+{% extends './base/base.html' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-background">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6 text-primary">
+            <i class="fas fa-user-graduate"></i> Student Registration
+        </h2>
+
+        <!-- Error message -->
+        {% if error %}
+        <div class="bg-red-100 border border-error text-error px-4 py-3 rounded relative mb-4" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="block text-neutral font-medium mb-2">
+                    <i class="fas fa-envelope"></i> Email:
+                </label>
+                <input type="email" name="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="block text-neutral font-medium mb-2">
+                    <i class="fas fa-lock"></i> Password:
+                </label>
+                <input type="password" name="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+            </div>
+
+            <!-- First name -->
+            <div class="mb-4">
+                <label for="first_name" class="block text-neutral font-medium mb-2">
+                    <i class="fas fa-user"></i> First name:
+                </label>
+                <input type="text" name="first_name" id="first_name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+            </div>
+
+            <!-- Last name -->
+            <div class="mb-4">
+                <label for="last_name" class="block text-neutral font-medium mb-2">
+                    <i class="fas fa-user"></i> Last name:
+                </label>
+                <input type="text" name="last_name" id="last_name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+            </div>
+
+            <!-- Photo -->
+            <div class="mb-6">
+                <label for="photo" class="block text-neutral font-medium mb-2">
+                    <i class="fas fa-camera"></i> Photo:
+                </label>
+                <input type="file" name="photo" id="photo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary">
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+        </form>
+
+        <!-- Login link -->
+        <p class="text-neutral text-sm mt-4 text-center">
+            Already have an account? <a href="{% url 'login' %}" class="text-secondary hover:text-primary hover:underline">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a> instead.
+        </p>
+    </div>
+</div>
+{% endblock %}
