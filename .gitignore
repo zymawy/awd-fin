@@ -9,3 +9,4 @@ urjwan_app/__pycache__
 urjwan_app/data/__pycache__
 urjwan_app/management/commands/__pycache__
 urjwan_app/migrations/__pycache__
+db.sqlite3
