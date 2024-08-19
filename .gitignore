@@ -1,6 +1,7 @@
 node_modules
 dist
 chat/__pycache__
+urjwan_app/tests/__pycache__
 chat/migrations/__pycache__
 notifications/__pycache__
 urjwan/__pycache__
