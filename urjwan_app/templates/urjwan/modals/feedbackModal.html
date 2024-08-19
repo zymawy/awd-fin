@@ -38,7 +38,7 @@
 		   $('#feedbackForm').on('submit', function(event) {
         event.preventDefault();
 
-        // Show loading state
+
         let submitButton = $(this).find('button[type="submit"]');
         submitButton.prop('disabled', true);
         submitButton.html('<i class="fas fa-spinner fa-spin mr-2"></i>Saving...');

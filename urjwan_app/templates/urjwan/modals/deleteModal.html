@@ -78,7 +78,7 @@
 
 		$('#confirmDeleteBtn').prop('disabled', true).text('Deleting...');
 
-            const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();  // Get the CSRF token from the hidden input
+            const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
 
 		$.ajax({
 			url: actionUrl,

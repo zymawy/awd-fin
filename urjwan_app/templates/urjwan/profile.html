@@ -2,9 +2,9 @@
 {% load static tailwind_tags %}
 
 {% block content %}
-<!-- Cover Photo Section -->
+
 <div class="relative w-full h-48 bg-cover bg-center" style="background-image: url('{% static 'images/cover-photo.jpg' %}');">
-    <!-- Profile Picture - Positioned over the cover photo -->
+
     <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-12">
         <div class="profile-picture-container relative">
             <div class="profile-picture border-4 border-white rounded-full overflow-hidden w-32 h-32">
@@ -21,12 +21,12 @@
     </div>
 </div>
 
-<!-- Profile Information Section -->
+
 <div class="mt-16 text-center">
     <h1 class="text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
     <p class="text-gray-600">{{ user.email }}</p>
 
-    <!-- Account Type Badge -->
+
     <div class="mt-4 flex justify-center items-center space-x-2">
             {% if user_profile.is_student %}
 				<span class="inline-block bg-green-200 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
@@ -38,7 +38,7 @@
 				</span>
             {% endif %}
 
-        <!-- Status with an Emoji (optional) -->
+
         {% if user_profile.status %}
         <span class="inline-block bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
             {{ user_profile.status }}
@@ -50,13 +50,13 @@
         {% endif %}
     </div>
 
-    <!-- Update Status Link -->
+
     <p class="mt-4 text-lg text-blue-500 cursor-pointer hover:underline" id="openStatusModalBtn">Update Status</p>
 </div>
 
-<!-- Main Content Section -->
+
 <div class="flex justify-center mt-8 px-4 space-x-4">
-    <!-- Enrolled Courses Section (for students) -->
+
     {% if user.userprofile.is_student %}
     <div class="w-full md:w-1/2 p-4">
         <div class="bg-white p-8 rounded-lg shadow-lg">
@@ -127,7 +127,7 @@
     {% endif %}
 </div>
 
-<!-- Update Status Modal -->
+
 <div id="statusModalOverlay" class="modal-overlay">
     <div id="statusModal" class="modal">
         <h3 class="text-xl font-semibold text-gray-900 mb-4">Update Status</h3>
@@ -173,7 +173,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Handle Update Status Modal
+
         $('#openStatusModalBtn').on('click', function(event) {
             event.preventDefault();
             $('#statusModalOverlay').addClass('modal-open');
@@ -183,7 +183,7 @@
             $('#statusModalOverlay').removeClass('modal-open');
         });
 
-        // Handle Change Photo Modal
+
         $('#openPhotoModalBtn').on('click', function(event) {
             event.preventDefault();
             $('#photoModalOverlay').addClass('modal-open');

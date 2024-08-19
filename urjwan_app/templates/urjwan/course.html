@@ -31,7 +31,7 @@
 
 {% block content %}
 <div class="container mx-auto mt-8">
-    <!-- Course Title and Actions -->
+
     <div class="bg-white p-6 rounded-lg shadow-md mb-8">
         <div class="flex justify-between items-center">
             <h2 class="text-4xl font-bold text-gray-800">{{ course.module_code }} ({{ course.title }})</h2>
@@ -75,19 +75,19 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Assignments and Materials Section -->
+
         <div class="lg:col-span-2 space-y-8">
   {% if not user.is_authenticated %}
-	           <!-- Course Description Section -->
+
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h3 class="text-2xl font-semibold text-gray-700 mb-4">Course Description</h3>
                 <p class="text-gray-700">{{ course.description }}</p>
             </div>
   {% endif %}
             {% if user.is_authenticated %}
-            <!-- Assignments Section -->
+
             <div class="bg-gray-100 p-8 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-2xl font-semibold text-gray-700 flex items-center">
@@ -136,7 +136,7 @@
                 {% endif %}
             </div>
 
-            <!-- Materials Section -->
+
             <div class="bg-gray-100 p-8 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-2xl font-semibold text-gray-700 flex items-center">
@@ -183,7 +183,7 @@
             </div>
             {% endif %}
 
-            <!-- Feedback Section for Instructors -->
+
             {% if user_profile.is_instructor %}
             <div class="bg-gray-100 p-8 rounded-lg shadow-md">
                 <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
@@ -214,7 +214,7 @@
             </div>
             {% endif %}
 
-            <!-- Feedback Section for Students -->
+
             {% if logged_in_user.userprofile.is_student %}
             <div class="bg-gray-100 p-8 rounded-lg shadow-md">
 				<div class="flex justify-between items-center mb-4">
@@ -254,7 +254,7 @@
             {% endif %}
         </div>
 
-        <!-- Sidebar Section -->
+
         <div class="space-y-8">
             {% if user.is_authenticated and course in user_profile.courses_enrolled.all %}
             <div class="bg-white p-8 rounded-lg shadow-md sticky top-4">
@@ -271,7 +271,7 @@
                 {{ auth_group|json_script:"auth_group" }}
                 {{ user_id|json_script:"user_id" }}
             </div>
-            <!-- People Section -->
+
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold mb-4">
                     <i class="fas fa-users mr-2"></i> People
@@ -321,7 +321,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    // Initialize Flatpickr for date fields
+
     flatpickr("input[type='date']", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",

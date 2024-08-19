@@ -18,6 +18,7 @@ router.register(r'assignments', AssignmentViewSet)
 router.register(r'feedbacks', FeedbackViewSet)
 router.register(r'notifications', NotificationViewSet)
 router.register(r'chatmessages', ChatMessageViewSet)
+
 schema_view = get_schema_view(
 	openapi.Info(
 		title="Urjwan API",

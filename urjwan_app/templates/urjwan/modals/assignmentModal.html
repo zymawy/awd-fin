@@ -30,7 +30,6 @@ $(document).ready(function() {
 	$('#assignmentForm').on('submit', function(event) {
             event.preventDefault();
 
-            // Disable the submit button and show a loading state
             $('#submitAssignmentBtn').prop('disabled', true).text('Saving...');
 
             var formData = $(this).serialize();
@@ -40,19 +39,19 @@ $(document).ready(function() {
                 url: $(this).attr('action'),
                 data: formData,
                 success: function(response) {
-                    // Handle success (e.g., close modal, update page content)
+
                     $('#assignmentModalOverlay').removeClass('modal-open');
-                    // Optionally, reload the page or update the assignment list dynamically
+
                     location.reload();
                 },
                 error: function(xhr, status, error) {
-                    // Handle error (e.g., show validation errors)
+
                     var errors = xhr.responseJSON;
                     for (var field in errors) {
-                        // Display errors under the corresponding input
+
                         $('#' + field).after('<span class="text-red-500 block mt-1">' + errors[field] + '</span>');
                     }
-                    // Re-enable the submit button
+
                     $('#submitAssignmentBtn').prop('disabled', false).text('Add');
                 }
             });

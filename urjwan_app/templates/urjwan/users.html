@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mx-auto mt-8">
-    <!-- Search Section -->
+
     <div class="bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold mb-4">Search Users</h2>
         <form method="GET" action="{% url 'users' %}" class="flex space-x-4">
@@ -20,7 +20,7 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
-        <!-- Users List (Students and Teachers together) -->
+
         {% if users %}
         {% for user in page_obj %}
         <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
@@ -67,7 +67,7 @@
         {% endif %}
     </div>
 
-    <!-- Pagination Controls -->
+
     <div class="mt-8 flex justify-center">
         <nav aria-label="Page navigation">
             <ul class="inline-flex items-center -space-x-px">

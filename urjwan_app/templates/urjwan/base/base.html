@@ -102,14 +102,14 @@
         cursor: pointer;
     }
 </style>
-    <!-- Tailwind CSS -->
+
     {% tailwind_css %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 <script>
 
     function displayErrors(errors) {
-        clearErrors();  // Clear any previous errors
+        clearErrors();
         for (let field in errors) {
             let errorMsg = errors[field][0];
             let errorElement = `<span class="text-red-500 block mt-1">${errorMsg}</span>`;
@@ -117,34 +117,34 @@
         }
     }
 
-    // Function to clear errors
+
     function clearErrors() {
-        $('.text-red-500').remove();  // Remove all error messages
+        $('.text-red-500').remove();
     }
 </script><title></title>
     {% block extra_head %}
-    <!-- Additional head content can be added here -->
+
     {% endblock extra_head %}
 
 </head>
 
 <body class="bg-gray-100 text-gray-900">
 
-    <!-- Header -->
+
     <header class="bg-white shadow">
 	{% include './navigation.html' %}
             {% block header %}
             {% endblock header %}
     </header>
 
-    <!-- Main Content -->
+
     <main class="container mx-auto px-4 py-6">
         {% block content %}
-        <!-- Page-specific content will be injected here -->
+
         {% endblock content %}
     </main>
 
-    <!-- Footer -->
+
     <footer class="bg-gray-800 text-white mt-8 py-6">
         <div class="container mx-auto text-center">
             <p>&copy; Urjwan eLean</p>
@@ -163,7 +163,7 @@
         </button>
     </div>
     <ul id="notification-list" class="p-4 max-h-64 overflow-y-auto">
-        <!-- Notifications will be dynamically added here -->
+
     </ul>
     <div id="loader" class="hidden flex justify-center py-4">
         <i class="fas fa-spinner fa-spin text-blue-500"></i>
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     {% block extra_scripts %}
-    <!-- Additional scripts can be added here -->
+
     {% endblock extra_scripts %}
 
 </body>
