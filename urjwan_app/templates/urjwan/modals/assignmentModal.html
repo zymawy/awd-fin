@@ -1,0 +1,61 @@
+<div id="assignmentModalOverlay" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+    <div id="assignmentModal" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Create Assignment for {{ course.module_code }}</h3>
+        <form id="assignmentForm" action="{% url 'assignments.create' course.id %}" method="post">
+            {% csrf_token %}
+
+            {% if assignment_form %}
+                {{ assignment_form.as_p }}
+            {% else %}
+                <p class="text-red-500">No assignment form provided!</p>
+            {% endif %}
+
+            <div class="flex justify-end">
+                <button type="button" id="closeAssignmentModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+                <button type="submit" id="submitAssignmentBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#openAssignmentModalBtn').on('click', function() {
+		$('#assignmentModalOverlay').addClass('modal-open');
+	});
+	$('#closeAssignmentModalBtn').on('click', function() {
+		$('#assignmentModalOverlay').removeClass('modal-open');
+	});
+
+	$('#assignmentForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Disable the submit button and show a loading state
+            $('#submitAssignmentBtn').prop('disabled', true).text('Saving...');
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function(response) {
+                    // Handle success (e.g., close modal, update page content)
+                    $('#assignmentModalOverlay').removeClass('modal-open');
+                    // Optionally, reload the page or update the assignment list dynamically
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error (e.g., show validation errors)
+                    var errors = xhr.responseJSON;
+                    for (var field in errors) {
+                        // Display errors under the corresponding input
+                        $('#' + field).after('<span class="text-red-500 block mt-1">' + errors[field] + '</span>');
+                    }
+                    // Re-enable the submit button
+                    $('#submitAssignmentBtn').prop('disabled', false).text('Add');
+                }
+            });
+        });
+})
+</script>

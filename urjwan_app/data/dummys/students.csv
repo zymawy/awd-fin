@@ -1,0 +1,15 @@
+username,user_type,photo_path,status
+mohamed1@t.com,student,urjwan_app/user_photos/default_user.png,
+ali2@t.com,student,urjwan_app/user_photos/default_user.png,
+test_student@test.com,student,urjwan_app/user_photos/lightbulb.png,Could this be??
+ahmed.houstos@gmail.com,student,urjwan_app/user_photos/default_user.png,
+farah.student@gmail.com,student,urjwan_app/user_photos/wp1838745.jpg,Excited to start!
+samira.pikkin@gmail.com,student,urjwan_app/user_photos/alone.png,Focused on learning
+sima.aruga@gmail.com,student,urjwan_app/user_photos/default_user.png,
+sorgie.geordani@gmail.com,student,urjwan_app/user_photos/man.png,this is me!!
+stephan.torlini@gmail.com,student,urjwan_app/user_photos/default_user.png,
+susie.yao@gmail.com,student,urjwan_app/user_photos/default_user.png,
+teacher1@test.com,instructor,urjwan_app/user_photos/default_user.png,In classes today ~~
+tayeb@urjwan.com,instructor,urjwan_app/user_photos/painting.png,Busy marking papers this week
+tarek@urjwan.com,instructor,urjwan_app/user_photos/Pebbles-Road-Texture.jpg,I'm new, please introduce yourself!
+fareed.musta@gmail.com,instructor,urjwan_app/user_photos/male.png,Hello, I'm new here

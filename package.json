@@ -3,6 +3,6 @@
     "tailwindcss": "^3.4.9"
   },
   "scripts": {
-    "build:css": "npx tailwindcss -i ./styles/tailwind.css -o ./elearn_app/static/css/tailwind.css --minify"
+    "build:css": "npx tailwindcss -i ./styles/tailwind.css -o ./urjwan_app/static/css/tailwind.css --minify"
   }
 }

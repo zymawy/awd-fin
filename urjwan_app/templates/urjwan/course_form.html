@@ -1,0 +1,54 @@
+{% extends './base/base.html' %}
+{% block content %}
+
+<div class="container mx-auto mt-8 p-8 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-6">Add New Course</h2>
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Module Code Field -->
+        <div class="form-group">
+            <label for="module_code" class="block text-sm font-medium text-gray-700">Module Code</label><br>
+            <em class="text-sm text-gray-500">E.g. CC3035</em>
+            <input type="text" class="form-control mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="module_code" name="module_code">
+            <!-- Display errors for module_code -->
+            {% if form.module_code.errors %}
+                <span class="text-red-500 text-sm mt-2 block">{{ form.module_code.errors|first }}</span>
+            {% endif %}
+        </div>
+
+        <!-- Title Field -->
+        <div class="form-group">
+            <label for="title" class="block text-sm font-medium text-gray-700">Course Title</label><br>
+            <em class="text-sm text-gray-500">E.g. Evolution Theory</em>
+            <input type="text" class="form-control mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="title" name="title">
+            <!-- Display errors for title -->
+            {% if form.title.errors %}
+                <span class="text-red-500 text-sm mt-2 block">{{ form.title.errors|first }}</span>
+            {% endif %}
+        </div>
+
+        <!-- General Form Error Message -->
+        {% if form.errors %}
+        <div class="alert alert-warning text-red-500 text-sm mt-4">
+            <p class="font-bold">The following errors have been detected:</p>
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|join:", " }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Submit Button -->
+        <div class="form-group mt-4">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Save Course
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

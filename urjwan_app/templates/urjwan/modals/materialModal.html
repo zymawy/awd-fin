@@ -1,0 +1,66 @@
+<div id="materialModalOverlay" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+    <div id="materialModal" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Upload Material for {{ course.module_code }}</h3>
+        <form id="materialForm" method="post" action="{% url 'material.create' course.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.title.label }}</label>
+                {{ form.title }}
+                {% for error in form.title.errors %}
+                <span class="text-red-500 block mt-1">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.file.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.file.label }}</label>
+                {{ form.file }}
+                {% for error in form.file.errors %}
+                <span class="text-red-500 block mt-1">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="flex justify-end">
+                <button type="button" id="closeMaterialModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+	   $('#openMaterialModalBtn').on('click', function() {
+		$('#materialModalOverlay').addClass('modal-open')
+	});
+	$('#closeMaterialModalBtn').on('click', function() {
+		$('#materialModalOverlay').removeClass('modal-open')
+	});
+
+   $('#materialForm').on('submit', function(event) {
+            event.preventDefault();
+
+            $('#submitMaterialBtn').prop('disabled', true).text('Uploading...');
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#materialModalOverlay').removeClass('modal-open');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    var errors = xhr.responseJSON;
+                    for (var field in errors) {
+                        $('#' + field).after('<span class="text-red-500 block mt-1">' + errors[field] + '</span>');
+                    }
+
+                    $('#submitMaterialBtn').prop('disabled', false).text('Upload');
+                }
+            });
+});
+})
+</script>

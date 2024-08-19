@@ -1,0 +1,304 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Urjwan eLean">
+    <meta name="author" content="Hamza Zymawy">
+	<script src="{% static 'js/modal.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .modal-overlay.modal-open {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .modal {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100px);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .modal-overlay.modal-open .modal {
+        transform: translateY(0);
+    }
+
+    .modal-close-btn {
+        background-color: #e53e3e;
+        color: #fff;
+    }
+
+    .modal-close-btn:hover {
+        background-color: #c53030;
+    }
+
+    /* Custom Styles for Centered Profile */
+    .profile-picture-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .profile-picture-container .profile-picture {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #e2e8f0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture img {
+        width: 100%;
+        height: 100%;
+        object-cover: cover;
+    }
+
+    .profile-info {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .profile-info h2 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #1a202c;
+    }
+
+    .profile-info p {
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-info .update-status a {
+        color: #2b6cb0;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+    <!-- Tailwind CSS -->
+    {% tailwind_css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<script>
+
+    function displayErrors(errors) {
+        clearErrors();  // Clear any previous errors
+        for (let field in errors) {
+            let errorMsg = errors[field][0];
+            let errorElement = `<span class="text-red-500 block mt-1">${errorMsg}</span>`;
+            $(`#${field}`).after(errorElement);
+        }
+    }
+
+    // Function to clear errors
+    function clearErrors() {
+        $('.text-red-500').remove();  // Remove all error messages
+    }
+</script><title></title>
+    {% block extra_head %}
+    <!-- Additional head content can be added here -->
+    {% endblock extra_head %}
+
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white shadow">
+	{% include './navigation.html' %}
+            {% block header %}
+            {% endblock header %}
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        {% block content %}
+        <!-- Page-specific content will be injected here -->
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-8 py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; Urjwan eLean</p>
+        </div>
+    </footer>
+
+{% if logged_in_user %}
+<div id="notifications-container" data-actions-icnt="{{  logged_in_user }}" class="fixed bottom-0 right-0 m-4 w-80 bg-white shadow-lg rounded-lg overflow-hidden border-t-4 border-blue-500">
+    <div class="flex items-center justify-between bg-blue-500 text-white px-4 py-2">
+        <div class="flex items-center">
+            <i class="fas fa-bell mr-2"></i>
+            <h2 class="text-lg font-semibold">Notifications</h2>
+        </div>
+        <button id="closeNotificationsBtn" class="text-white hover:text-gray-300">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <ul id="notification-list" class="p-4 max-h-64 overflow-y-auto">
+        <!-- Notifications will be dynamically added here -->
+    </ul>
+    <div id="loader" class="hidden flex justify-center py-4">
+        <i class="fas fa-spinner fa-spin text-blue-500"></i>
+    </div>
+</div>
+
+<div class="fixed bottom-0 right-0 m-4 p-8">
+    <button id="openNotificationsBtn" class="hidden bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none" style="padding: 10px 14px !important">
+        <i class="fas fa-bell"></i>
+        <span id="notification-badge" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs hidden" style="padding: 4px 8px !important;">0</span>
+    </button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const notificationsContainer = document.getElementById('notifications-container');
+    const closeNotificationsBtn = document.getElementById('closeNotificationsBtn');
+    const openNotificationsBtn = document.getElementById('openNotificationsBtn');
+    const notificationBadge = document.getElementById('notification-badge');
+    const notificationList = document.getElementById('notification-list');
+    const loader = document.getElementById('loader');
+
+    // Initially open the notifications drawer
+    notificationsContainer.classList.remove('hidden');
+    openNotificationsBtn.classList.add('hidden');
+
+    closeNotificationsBtn.addEventListener('click', function() {
+        notificationsContainer.classList.add('hidden');
+        openNotificationsBtn.classList.remove('hidden');
+    });
+
+    openNotificationsBtn.addEventListener('click', function() {
+        notificationsContainer.classList.remove('hidden');
+        openNotificationsBtn.classList.add('hidden');
+    });
+
+    const notificationSocket = new WebSocket('ws://' + window.location.host + '/ws/notifications/' + {{ logged_in_user.id }} + '/');
+
+    notificationSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+
+        if (data.type === 'old_notification') {
+            addNotificationToUI(data.notification, data.notification.id, data.notification.read_status);
+            if (!data.notification.read_status) {
+                incrementNotificationBadge();
+            }
+        }
+
+        if (data.type === 'new_notification') {
+            addNotificationToUI(data.notification, data.notification.id, false);
+            incrementNotificationBadge();
+        }
+    };
+
+    notificationSocket.onclose = function(event) {
+        console.error('Notification WebSocket closed unexpectedly');
+    };
+
+    function addNotificationToUI(notification, notificationId, isRead) {
+        const listItem = document.createElement('li');
+        listItem.classList.add('p-4', 'border-b', 'border-gray-200', 'hover:bg-gray-50', 'transition');
+        if (!isRead) {
+            listItem.classList.add('bg-gray-100');
+        }
+
+        listItem.innerHTML = `
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-info-circle text-blue-500"></i>
+                <div>
+                    <p class="text-gray-700 font-semibold">${notification.message}</p>
+                    <p class="text-sm text-gray-500">${notification.course_name} - ${new Date(notification.timestamp).toLocaleString()}</p>
+                </div>
+                <div class="loader hidden flex justify-center items-center ml-auto">
+                    <i class="fas fa-spinner fa-spin text-blue-500"></i>
+                </div>
+            </div>
+        `;
+        listItem.addEventListener('click', () => markAsRead(notificationId, listItem));
+        notificationList.appendChild(listItem);
+
+        notificationList.scrollTop = notificationList.scrollHeight;
+    }
+
+    function markAsRead(notificationId, listItem) {
+        const loaderElement = listItem.querySelector('.loader');
+        loaderElement.classList.remove('hidden'); // Show loader
+
+        fetch(`/mark-as-read/${notificationId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            }
+        }).then(response => {
+            if (response.ok) {
+                listItem.classList.remove('bg-gray-100');
+                loaderElement.classList.add('hidden'); // Hide loader
+
+                if (notificationBadge.textContent === '1') {
+                    notificationBadge.classList.add('hidden');
+                } else {
+                    incrementNotificationBadge('decrement');
+                }
+            }
+        });
+    }
+
+    function incrementNotificationBadge(state = 'increment') {
+        let count = parseInt(notificationBadge.textContent) || 0;
+        notificationBadge.textContent = state === 'increment' ? count + 1 : count - 1;
+        notificationBadge.classList.remove('hidden');
+    }
+
+    function showLoader() {
+        loader.classList.remove('hidden');
+    }
+
+    function hideLoader() {
+        loader.classList.add('hidden');
+    }
+
+    showLoader();
+    setTimeout(hideLoader, 1000);
+});
+
+</script>
+{% endif %}
+
+
+
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    {% block extra_scripts %}
+    <!-- Additional scripts can be added here -->
+    {% endblock extra_scripts %}
+
+</body>
+
+</html>

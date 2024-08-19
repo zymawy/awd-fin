@@ -1,0 +1,75 @@
+{% extends './base/base.html' %}
+
+{% block extra_head %}
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container--default .select2-selection--multiple {
+        height: 48px;
+        border: 1px solid #d1d5db; /* Tailwind gray-300 */
+        padding: 4px 6px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-8 p-8 bg-white shadow-md rounded-lg">
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Class List for {{course.module_code}}</h2>
+        <a href="/courses/{{course.id}}" class="text-blue-500 hover:underline">&lt; Back to Course</a>
+    </div>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Module Code - Read Only -->
+        <div class="mb-4">
+            <label for="module_code" class="block text-sm font-medium text-gray-700">Module Code</label>
+            <input type="text" id="module_code" name="module_code" value="{{ course.module_code }}" readonly
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <!-- Course Title - Read Only -->
+        <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-700">Course Title</label>
+            <input type="text" id="title" name="title" value="{{ course.title }}" readonly
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <!-- Student Selection using Select2 -->
+        <div class="mb-4">
+            <label for="student-select" class="block text-sm font-medium text-gray-700">Select Students</label>
+            <select id="student-select" name="students" class="form-select select2 w-full" multiple>
+                {% for student in all_students %}
+                    <option value="{{ student.id }}" {% if student in enrolled_students %}selected{% endif %}>
+                        {{ student.user.get_full_name }} ({{ student.user.email }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md shadow">
+                Enroll Selected Students
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- Include Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 for the student select box
+        $('#student-select').select2({
+            placeholder: 'Select students',
+            allowClear: true,
+            width: '100%'
+        });
+    });
+</script>
+{% endblock %}

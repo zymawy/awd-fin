@@ -1,0 +1,64 @@
+
+<div id="feedbackModalOverlay" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+    <div id="feedbackModal" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Leave a Feedback</h2>
+        <form id="feedbackForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="feedback_text" class="block text-sm font-medium text-gray-700">Your Feedback</label>
+                <textarea name="feedback_text" id="feedback_text" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" rows="4"></textarea>
+            </div>
+            <div class="mt-4 flex justify-end space-x-3">
+                <button type="button" id="closeFeedbackModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+	$(document).ready(function() {
+        $('#openFeedbackModalBtn').on('click', function(event) {
+            event.preventDefault();
+            $('#feedbackModalOverlay').addClass('modal-open');
+        });
+
+        $('#closeFeedbackModalBtn').on('click', function() {
+            $('#feedbackModalOverlay').removeClass('modal-open');
+			clearErrors()
+        });
+
+        $(window).on('click', function(event) {
+            if ($(event.target).hasClass('modal-overlay')) {
+                $('#feedbackModalOverlay').removeClass('modal-open');
+				clearErrors()
+            }
+        });
+
+
+		   $('#feedbackForm').on('submit', function(event) {
+        event.preventDefault();
+
+        // Show loading state
+        let submitButton = $(this).find('button[type="submit"]');
+        submitButton.prop('disabled', true);
+        submitButton.html('<i class="fas fa-spinner fa-spin mr-2"></i>Saving...');
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'feedback.store' course.id %}",
+            data: $(this).serialize(),
+            success: function() {
+                $('#feedbackModalOverlay').addClass('hidden');
+                submitButton.prop('disabled', false);
+                submitButton.html('Save');
+				return location.reload();
+            },
+            error: function(response) {
+                displayErrors(response.responseJSON);
+                submitButton.prop('disabled', false);
+                submitButton.html('Save');
+            }
+        });
+    });
+	})
+</script>

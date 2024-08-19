@@ -1,0 +1,104 @@
+<div id="deleteModalOverlay" class="modal-overlay inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+    <div id="deleteModal" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Confirm Deletion</h2>
+        <p>Are you sure you want to delete <strong id="deleteItemTitle"></strong>? This action cannot be undone.</p>
+        <div class="mt-4 flex justify-end space-x-3">
+            <button type="button" id="cancelDeleteBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+            <button type="button" id="confirmDeleteBtn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Yes, Delete</button>
+        </div>
+    </div>
+</div>
+{% csrf_token %}
+
+<script>
+    let deleteType = '';
+    let deleteId = '';
+    let courseId = '';
+    let actionUrl = '';
+    let actionType = 'DELETE';
+
+    $(document).ready(function() {
+        $('.delete-assignment-btn').on('click', function(event) {
+            event.preventDefault();
+            deleteType = 'assignment';
+            deleteId = $(this).data('id');
+            courseId = $(this).data('course-id');
+            actionUrl = $(this).data('action');
+			actionType = $(this).data('action-type');
+			console.log(courseId, deleteId, deleteId)
+            const itemTitle = $(this).data('title');
+            $('#deleteItemTitle').text(itemTitle);
+            $('#deleteModalOverlay').addClass('modal-open');
+        });
+
+        $('.delete-material-btn').on('click', function(event) {
+            event.preventDefault();
+            deleteType = 'material';
+            deleteId = $(this).data('id');
+			courseId = $(this).data('course-id');
+			actionUrl = $(this).data('action');
+            const itemTitle = $(this).data('title');
+            $('#deleteItemTitle').text(itemTitle);
+            $('#deleteModalOverlay').addClass('modal-open');
+        });
+
+		$('.delete-course-btn').on('click', function(event) {
+            event.preventDefault();
+            deleteType = 'course';
+            deleteId = $(this).data('id');
+			courseId = $(this).data('course-id');
+            const itemTitle = $(this).data('title');
+			actionUrl = $(this).data('action');
+            $('#deleteItemTitle').text(itemTitle);
+            $('#deleteModalOverlay').addClass('modal-open');
+        });
+
+		$('.delete-student-btn').on('click', function(event) {
+            event.preventDefault();
+            deleteType = 'enrollments';
+            deleteId = $(this).data('id');
+			courseId = $(this).data('course-id');
+            const itemTitle = $(this).data('title');
+			actionUrl = $(this).data('action');
+            $('#deleteItemTitle').text(itemTitle);
+            $('#deleteModalOverlay').addClass('modal-open');
+        });
+
+        $('#cancelDeleteBtn').on('click', function() {
+            $('#deleteModalOverlay').removeClass('modal-open');
+        });
+
+        $(window).on('click', function(event) {
+            if ($(event.target).hasClass('modal-overlay')) {
+                $('#deleteModalOverlay').removeClass('modal-open');
+            }
+        });
+
+        $('#confirmDeleteBtn').on('click', function() {
+
+		$('#confirmDeleteBtn').prop('disabled', true).text('Deleting...');
+
+            const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();  // Get the CSRF token from the hidden input
+
+		$.ajax({
+			url: actionUrl,
+			type: actionType,
+			headers: {
+				'X-CSRFToken': csrfToken
+			},
+			success: function (response) {
+				if (response.redirect_url) {
+					return window.location = response.redirect_url;
+				}
+				$('#' + deleteType + 'ModalOverlay').removeClass('modal-open');
+				return location.reload();
+			},
+			error: function () {
+				$('#confirmDeleteBtn').prop('disabled', false).text('Delete');
+			}
+		});
+
+            $('#deleteModalOverlay').removeClass('modal-open');
+        });
+    });
+</script>
