@@ -1,15 +1,13 @@
-from django.http import JsonResponse, HttpResponse
-from rest_framework.parsers import JSONParser 
+from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
-from .models import *
 from .serializers import *
 
-# only this API is accessible to members of the public. 
+# only this API is accessible to members of the public.
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def course_list(request): 
+def course_list(request):
     if request.method == 'GET':
         courses = Course.objects.all()
         serializer = CourseListSerializer(courses, many=True)

@@ -47,6 +47,7 @@ def register(request):
 				user.save()
 				profile = profile_form.save(commit=False)
 				profile.user = user
+				profile.user_type = 'student'
 
 				if "photo" in request.FILES:
 					profile.photo = request.FILES["photo"]
@@ -55,8 +56,6 @@ def register(request):
 
 				student_group = Group.objects.get(name='student')
 				student_group.user_set.add(user)
-				profile.is_student = True
-				profile.is_instructor = False
 
 				profile.save()
 				registered = True
@@ -601,7 +600,7 @@ def enrollments(request, course_pk):
 	message = user_profile.user.get_full_name() + " has enrolled in the course."
 	notification = Notification(to_user=course.instructor,
 								from_user=user_profile, course=course,
-								type=message)
+								message=message)
 	notification.save()
 	# let's notify the instructor
 	notify(notification, course.instructor)

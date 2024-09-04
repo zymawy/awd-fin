@@ -14,9 +14,11 @@
                 <img src="{% static 'images/default_user.png' %}" alt="Profile Picture" class="object-cover w-full h-full">
                 {% endif %}
             </div>
+			{% if user_profile.user_id == user.id %}
             <div class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer" id="openPhotoModalBtn">
                 <i class="fas fa-camera"></i>
             </div>
+			{% endif %}
         </div>
     </div>
 </div>
@@ -51,7 +53,9 @@
     </div>
 
 
-    <p class="mt-4 text-lg text-blue-500 cursor-pointer hover:underline" id="openStatusModalBtn">Update Status</p>
+	{% if user_profile.user_id == user.id %}
+    	<p class="mt-4 text-lg text-blue-500 cursor-pointer hover:underline" id="openStatusModalBtn">Update Status</p>
+	{% endif %}
 </div>
 
 

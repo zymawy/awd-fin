@@ -1,14 +1,14 @@
 module_code,title,profile_id,description
 CM3045,3D Graphics and Animation,1,An introduction to 3D graphics and animation techniques.
 CM3035,Advanced Web Development,2,Advanced techniques for modern web application development.
-CM3020,Artificial Intelligence,3,Exploring AI principles and their applications.
-CM3005,Data Science,4,Fundamentals and advanced topics in data science.
-CM3010,Databases and Advanced Data Techniques,5,In-depth understanding of databases and data techniques.
-CM3030,Games Development,6,Game development principles and programming techniques.
-CM3065,Intelligent Signal Processing,7,Introduction to intelligent signal processing methods.
-CM3055,Interaction Design,8,Design and evaluation of interactive systems.
-CM3015,Machine Learning and Neural Networks,9,Learning about machine learning and neural networks.
-CM3050,Mobile Development,10,Developing mobile applications with a focus on user experience.
-CM3060,Natural Language Processing,11,Understanding natural language processing and its uses.
-CM3040,Physical Computing and Internet of Things,12,Exploring physical computing and IoT technologies.
-CM3025,Virtual Reality,13,Introduction to the concepts and applications of virtual reality.
+CM3020,Artificial Intelligence,1,Exploring AI principles and their applications.
+CM3005,Data Science,2,Fundamentals and advanced topics in data science.
+CM3010,Databases and Advanced Data Techniques,1,In-depth understanding of databases and data techniques.
+CM3030,Games Development,2,Game development principles and programming techniques.
+CM3065,Intelligent Signal Processing,1,Introduction to intelligent signal processing methods.
+CM3055,Interaction Design,2,Design and evaluation of interactive systems.
+CM3015,Machine Learning and Neural Networks,1,Learning about machine learning and neural networks.
+CM3050,Mobile Development,2,Developing mobile applications with a focus on user experience.
+CM3060,Natural Language Processing,1,Understanding natural language processing and its uses.
+CM3040,Physical Computing and Internet of Things,2,Exploring physical computing and IoT technologies.
+CM3025,Virtual Reality,1,Introduction to the concepts and applications of virtual reality.

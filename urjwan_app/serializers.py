@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from .models import *
 from .models import UserProfile, Course, Material, Assignment, Feedback, \
 	Notification, ChatMessage
 

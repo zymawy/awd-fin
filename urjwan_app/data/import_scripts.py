@@ -45,9 +45,10 @@ def import_userProfile(csv_file_path):
         next(csv_reader)
         for row in csv_reader:
             username, user_type, photo_path, status = row
+            print(username)
             user = User.objects.get(username=username)
             if not UserProfile.objects.filter(user=user).exists():
-                userprofile = UserProfile.objects.create(user=user, user_type=user_type, photo=photo_path, status=status)
+                UserProfile.objects.create(user=user, user_type=user_type, photo=photo_path, status=status)
                 group = Group.objects.get(name=user_type)
                 user.groups.add(group)
                 user.save()
@@ -57,8 +58,8 @@ def import_course(csv_file_path):
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader)
         for row in csv_reader:
-            module_code, title, instructor_id, description = row
-            instructor = UserProfile.objects.get(id=instructor_id)
+            module_code, title, profile_id, description = row
+            instructor = UserProfile.objects.get(id=profile_id)
             if not Course.objects.filter(module_code=module_code).exists():
                 Course.objects.create(module_code=module_code, title=title, instructor=instructor, description=description)
 
@@ -109,9 +110,9 @@ def import_notification(csv_file_path):
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader)
         for row in csv_reader:
-            to_user_id, from_user_id, module_code, type, read_status, timestamp = row
+            to_user_id, from_user_id, module_code, message, read_status, timestamp = row
             to_user = UserProfile.objects.get(id=to_user_id)
             from_user = UserProfile.objects.get(id=from_user_id)
             course = Course.objects.get(module_code=module_code)
             timestamp = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-            Notification.objects.create(to_user=to_user, from_user=from_user, course=course, type=type, read_status=read_status == 'TRUE', timestamp=timestamp)
+            Notification.objects.create(to_user=to_user, from_user=from_user, course=course, message=message, read_status=read_status == 'TRUE', timestamp=timestamp)
