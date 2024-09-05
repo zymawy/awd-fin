@@ -197,6 +197,7 @@ TAILWIND_APP_NAME = "urjwan"
 
 INTERNAL_IPS = [
 	"127.0.0.1",
+	"goldfish-app-ueisa.ondigitalocean.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
