@@ -16,6 +16,7 @@ RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 RUN npm install -g tailwindcss@latest postcss@latest autoprefixer@latest
+RUN npm i rimraf
 
 # Copy project files
 COPY . /app/
