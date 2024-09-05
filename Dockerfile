@@ -12,9 +12,12 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 RUN apt-get update && \
+  	&& apt-get install -y ca-certificates curl gnupg \
+  	&& mkdir -p /etc/apt/keyrings \
     apt-get install -y curl && \
     curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
+    apt-get install -y nodejs \
+
 RUN npm install -g tailwindcss@latest postcss@latest autoprefixer@latest
 RUN npm i rimraf
 
