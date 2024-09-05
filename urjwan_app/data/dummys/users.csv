@@ -1,5 +1,5 @@
 username,first_name,last_name,email,is_active,password
-t1@urjwan.com,Ahmed,Abdullah,t1@urjwan.com,FALSE,test
+t1@urjwan.com,Ahmed,Abdullah,t1@urjwan.com,TRUE,test
 t2@urjwan.com,Khalid,Al-Shammari,t2@urjwan.com,TRUE,test
 student1@urjwan.com,Abdulaziz,Saeed,student1@urjwan.com,TRUE,test
 student2@urjwan.com,Fatima,Al-Harbi,student2@urjwan.com,TRUE,test

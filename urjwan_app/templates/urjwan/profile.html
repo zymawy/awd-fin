@@ -41,9 +41,9 @@
             {% endif %}
 
 
-        {% if user_profile.status %}
+        {% if viewed_user.status %}
         <span class="inline-block bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
-            {{ user_profile.status }}
+            {{ viewed_user.status }}
         </span>
         {% else %}
         <span class="inline-block bg-red-100 text-red-700 text-sm font-semibold px-3 py-1 rounded-full">

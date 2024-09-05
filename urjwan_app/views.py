@@ -159,6 +159,7 @@ class ProfileDetail(DetailView):
 		# Get the details of the logged-in user (authenticated user)
 		logged_in_user = self.request.user
 		context["user_profile"] = UserProfile.objects.get(user=logged_in_user)
+		context["viewed_user"] = UserProfile.objects.get(user=viewed_user)
 
 		# Check if the logged-in user is viewing their own profile
 		context["is_own_profile"] = logged_in_user == viewed_user
@@ -181,25 +182,21 @@ class PictureUpdate(UpdateView):
 	model = UserProfile
 	template_name = "urjwan/change_photo.html"
 	form_class = UserProfileForm
-	success_url = "/"
 
 	def get_object(self, queryset=None):
 		return self.request.user.userprofile
 
 	def form_valid(self, form):
-		# Get the user profile object
 		user_profile = form.save(commit=False)
-		# add the uploaded photo to the user profile
 		user_profile.photo = form.cleaned_data['photo']
 		user_profile.save()
-		return super().form_valid(form)
 
+		return HttpResponseRedirect(reverse('profile', args=[self.request.user.id]))
 
 class StatusUpdate(UpdateView):
 	model = UserProfile
 	template_name = "urjwan/change_status.html"
 	form_class = UpdateStatusForm
-	success_url = "/"
 
 	def get_object(self, queryset=None):
 		return self.request.user.userprofile
@@ -210,19 +207,19 @@ class StatusUpdate(UpdateView):
 		# add the uploaded photo to the user profile
 		user_profile.status = form.cleaned_data['status']
 		user_profile.save()
-		return super().form_valid(form)
+
+		return HttpResponseRedirect(reverse('profile', args=[self.request.user.id]))
 
 
 class UserList(ListView):
 	model = User
 	template_name = "urjwan/users.html"
 	context_object_name = "users"
-	paginate_by = 10  # Display 10 users per page
+	paginate_by = 10
 
 	def get_queryset(self):
 		user_profile = UserProfile.objects.get(user=self.request.user)
 		search_query = self.request.GET.get('search')
-
 		if user_profile.user_type == 'instructor':
 			# Instructors can view both students and instructors / exclude current user
 			queryset = User.objects.exclude(id=self.request.user.id)

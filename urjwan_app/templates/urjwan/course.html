@@ -256,7 +256,9 @@
 
 
         <div class="space-y-8">
-            {% if user.is_authenticated and course in user_profile.courses_enrolled.all %}
+            {% if user.is_authenticated %}
+				{% if course in user_profile.courses_enrolled.all or user_profile.is_instructor %}
+
             <div class="bg-white p-8 rounded-lg shadow-md sticky top-4">
                 <h3 class="text-xl font-semibold mb-4" id="chatroom_title">
                     <i class="fas fa-comments mr-2"></i> Live Chat
@@ -304,6 +306,7 @@
                     </tbody>
                 </table>
             </div>
+            	{% endif %}
             {% endif %}
         </div>
     </div>

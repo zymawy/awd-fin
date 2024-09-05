@@ -1,9 +1,4 @@
 # Urjwan Learning Platform
-
-## Overview
-
-**Urjwan** is an online learning platform built with **Django**, leveraging **Tailwind CSS** for a modern and responsive UI and **WebSockets** for real-time notifications and communication. This platform is designed to facilitate course management, student enrollment, assignment submissions, and real-time notifications between students and instructors.
-
 ![ER Diagram](./db_DDL.png)
 
 ## Features
@@ -15,100 +10,22 @@
 - **Real-time Notifications**: WebSocket-based notifications for student enrollment, assignment updates, and course announcements.
 - **Profile Management**: Students and instructors can update their profile information and status. Instructors can also manage their teaching responsibilities.
 - **Dynamic Chat System**: One-on-one and group communication using WebSockets.
+- **Responsive Design**: Tailwind CSS for a modern, responsive UI.
 
-## Tech Stack
+1. **Install dependencies**:
+   - Ensure that Python 3.10 is installed.
+   - Ensure that Docker is installed.
+   - Ensure docker-compose is installed.
 
-- **Python 3.10**
-- **Django 4.0**
-- **SQLite (Development) / PostgreSQL (Production)**
-- **Tailwind CSS**
-- **JavaScript (jQuery for DOM Manipulation)**
-- **Channels for WebSockets**
-- **Redis as a Channel Layer Backend**
+2. **Unzipping the project**:
+   - Download the zipped project folder and unzip it into your desired directory.
+  ```bash
+     unzip urjwan -d urjwan
+     cp .env.exemple .env
+     docker-compose up
+ ```
 
-## Setup
-
-### Prerequisites
-
-- Python 3.10+
-- Django 4.0+
-- Node.js and npm (for Tailwind CSS)
-- SQLite (for development) or PostgreSQL (for production)
-
-### Installation
-
-1. **unzip the code:**
-
-   ```bash
-   unzip urjwan.zip
-   cd urjwan
-   ```
-
-2. **Create a Virtual Environment:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install Dependencies:**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Install Tailwind CSS:**
-
-   ```bash
-   python manage.py tailwind init
-   python manage.py tailwind install
-   ```
-
-5. **Run Migrations:**
-
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-
-6. **Seed Database (Optional):**
-
-   You can seed the application with example data using Django management commands.
-
-   ```bash
-   		python manage.py seeder
-   ```
-7. **Run the Application:**
-
-   ```bash
-   python manage.py runserver
-   ```
-
-8. **Compile Tailwind CSS (Development Mode):**
-
-   ```bash
-   npm run dev
-   ```
-
-### Deployment
-
-For deployment, you can use **Render** or any cloud provider of your choice. PostgreSQL is recommended for production environments.
-
-1. **Setup a PostgreSQL Database** on your hosting provider.
-2. **Update the `settings.py`** with production configurations, including the database settings and allowed hosts.
-3. **Run database migrations** on the production server:
-
-   ```bash
-   python manage.py migrate
-   ```
-
-4. **Collect Static Files**:
-
-   ```bash
-   python manage.py collectstatic
-   ```
-
-5. **Deploy the app** using your preferred method (Heroku, Render, etc.).
+The server will be accessible at `http://0.0.0.0:8000/`.
 
 ## Folder Structure
 
