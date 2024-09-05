@@ -3,7 +3,7 @@
 # Load environment variables from .env file
 DEBUG=$(python -c "from decouple import config; print(config('DEBUG'))")
 
-  RUN python3 manage.py migrate && \
+    python3 manage.py migrate && \
     python3 manage.py create_superuser && \
     python3 manage.py seeder && \
     python3 manage.py tailwind install  --no-input && \
