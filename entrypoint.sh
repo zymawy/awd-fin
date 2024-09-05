@@ -3,12 +3,13 @@
 # Load environment variables from .env file
 DEBUG=$(python -c "from decouple import config; print(config('DEBUG'))")
 
+RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
+RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
+RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
+
     python3 manage.py migrate && \
-    python3 manage.py create_superuser --noinput --username=admin --email=admin@example.com && \
-    python3 manage.py seeder && \
-    python3 manage.py tailwind install && \
-    python3 manage.py tailwind build && \
-    python3 manage.py collectstatic --noinput
+    python3 manage.py create_superuser && \
+    python3 manage.py seeder
 
 if [ "$DEBUG" = "True" ]; then
     echo "Running in development mode"
